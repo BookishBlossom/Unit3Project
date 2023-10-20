@@ -8,12 +8,16 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float gravityModifier;
     public bool gameOver = false;
+    public Animator animator;
+    public ParticleSystem deathPoof;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
+        deathPoof = GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
         {
             gameOver = true;
             Debug.Log("Game Over!");
+            animator.SetBool("isDie", true);
+            deathPoof.Play();
         }
 
     }
